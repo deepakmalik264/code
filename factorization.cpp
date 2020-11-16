@@ -1,2 +1,1 @@
-#include<iostrea>
-hello
+#include<iostrea>----------------------
