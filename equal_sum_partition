@@ -1,0 +1,54 @@
+class Solution {
+public:
+    
+    bool helper(vector<int>&nums,int i,int n,int target,vector<vector<int>>&dp){
+        
+        if(i>=n and target==0) return true;
+        if(i>=n) return false;
+        if(target==0) return true;
+        
+        if(dp[i][target]!=-1){
+            
+            if(dp[i][target]==0) return false;
+            else return true;
+            
+        }
+        bool option1 = false;
+        
+        if(nums[i]<=target){
+             
+            option1 = helper(nums,i+1,n,target-nums[i],dp);
+        }
+        
+        bool  option2 = helper(nums,i+1,n,target,dp);
+        
+        
+        bool res = (option1 or option2) ;
+        
+        if(res) dp[i][target] = 1;
+        else dp[i][target] = 0;
+        return res;
+        
+        
+        
+    }
+    
+    
+    
+    bool canPartition(vector<int>& nums) {
+     
+        const int n  = nums.size();
+        
+        int sum = 0;
+        
+        for(auto x: nums) sum+=x;
+        vector<vector<int>> dp(n+1,vector<int>(sum/2 +2,-1));
+        
+        if(sum&1) return false;
+        
+    
+        return helper(nums,0,n,sum/2,dp);
+        
+         
+    }
+};
